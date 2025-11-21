@@ -1,0 +1,22 @@
+TASK 1 : Toggle Visibility
+===============================
+
+1 Using classList.toggle() → BEST way
+-----------
+
+Create a CSS class that hides the element:
+
+.hidden {
+  display: none;
+}
+Then toggle it with JS:
+element.classList.toggle("hidden");
+
+Example (recommended)
+-------
+<p id="text">Hello</p>
+<button id="btn">Toggle</button>
+
+btn.addEventListener("click", () => {
+  text.classList.toggle("hidden");
+});

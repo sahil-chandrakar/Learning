@@ -1,0 +1,29 @@
+B. ES6 Features (very important for modern JS & React)
+
+We will cover each in simple words + examples.
+
+let & const (already done, quick recap)
+
+Arrow functions
+
+Template literals
+
+Default parameters
+
+Destructuring
+
+Array destructuring
+
+Object destructuring
+
+Spread operator (...)
+
+Rest operator (...)
+
+Enhanced object literals
+
+Modules (import/export)
+
+Classes (ES6 syntax)
+
+Promises + async/await (core for API calls)

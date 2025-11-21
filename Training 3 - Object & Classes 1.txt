@@ -1,0 +1,121 @@
+Objects store data in key–value pairs.
+
+How to Create Objects
+----------------------
+a) 
+Object Literal (most common)
+const person = {
+  name: "Sara",
+  age: 25
+};
+
+b) 
+Using new Object() (rarely used)
+const obj = new Object();
+obj.name = "Ali";
+
+c) 
+Constructor Function (old way)
+function User(name, age) {
+  this.name = name;
+  this.age = age;
+}
+
+const u1 = new User("Sara", 30);
+
+d) 
+Class (modern ES6)
+
+Used a lot in React (older class components).
+
+class User {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+}
+
+const u2 = new User("Ali", 22);
+
+NOTE: Accessing using . and []
+
+
+Add / Update / Delete Properties
+-----------------------------------------
+Add / Update
+user.city = "Karachi";
+user.age = 21;
+
+Delete
+delete user.isStudent;
+
+NOTE: Object.keys(obj) → array of keys
+NOTE: Object.values(obj) → array of values
+NOTE: Object.entries(obj) → array of [key, value]
+
+
+Copying Objects - IMPORTANT
+-------------------------------
+
+1. Shallow copy (spread operator)
+	const newUser = { ...user };
+
+- If the object has nested objects, those are NOT copied — only the reference is copied.
+- Nested objects still linked (shared reference)
+
+ex: 
+const obj = { name: "Ali", address: { city: "Lahore" } };
+const copy = { ...obj };
+copy.address.city = "Karachi";
+console.log(obj.address.city); // "Karachi" (changed!)
+
+
+
+2. Deep copy (simple hack)
+const deep = JSON.parse(JSON.stringify(user));
+
+- Copies everything, including nested objects.
+- No references are shared.
+
+
+IMPORTANT THINGS: 
+
+⭐ What is JSON?
+JSON = JavaScript Object Notation
+A lightweight format used to store and send data.
+
+Example JSON:
+{
+  "name": "Ali",
+  "age": 20
+}
+
+⭐ JSON.stringify()
+Converts a JS object → string.
+const user = { name: "Ali", age: 20 };
+
+const str = JSON.stringify(user);
+console.log(str); // '{"name":"Ali","age":20}'  ← this is a string
+
+⭐ JSON.parse()
+Converts a JSON string → JavaScript object.
+
+const str = '{"name":"Ali","age":20}';
+const obj = JSON.parse(str);
+console.log(obj); // { name: "Ali", age: 20 }
+
+
+NOTE:
+--------
+JSON → Data format used everywhere (APIs)
+stringify() → Object → String
+parse() → String → Object
+parse + stringify → deep copy (simple objects)
+
+
+Comparing Objects
+---------------------------
+Objects compare by reference, not value.
+{ a: 1 } === { a: 1 }  // false
+Both are different objects in memory, so it is not possible
+

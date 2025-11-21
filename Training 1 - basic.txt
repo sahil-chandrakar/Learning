@@ -1,0 +1,73 @@
+&& is a logical AND operator
+
+const isLoggedIn = true;
+console.log(isLoggedIn && "Welcome!");
+
+🔍 Step-by-step for your example
+1️⃣ isLoggedIn is true
+isLoggedIn = true
+
+2️⃣ JavaScript checks the && operator
+true && "Welcome!"
+
+Since the left side is true, JS returns the right side.
+
+3️⃣ So it becomes:
+console.log("Welcome!");
+-------------------------------------------------------------------------
+
+Falsy values
+These behave like false:  false, "" or '', null, undefined, NaN	
+Any value NOT in this list is truthy.
+
+
+---------------
+✅ 2. OR Operator: ||
+Rule
+
+A || B
+
+If A is truthy, return A
+
+If A is falsy, return B
+
+This is HUGE in React for giving default values.
+
+🔍 Examples
+Example 1:
+console.log("" || "Default");
+// "Default"
+
+
+"" is falsy, so it returns "Default".
+
+Example 2:
+console.log("Hello" || "Default");
+// "Hello"
+
+
+"Hello" is truthy, so it returns "Hello".
+
+Example 3:
+console.log(0 || 100);
+// 100
+
+
+0 is falsy, so it returns 100.
+
+Example 4 (React example):
+const username = "";
+
+return <h1>{username || "Guest"}</h1>;
+
+
+Output → Guest
+Because "" is falsy.
+---------------------------------------
+
+
+✅ 3. Ternary Operator: condition ? valueIfTrue : valueIfFalse
+
+ex: {isLoggedIn ? <Dashboard /> : <Login />}
+
+------------

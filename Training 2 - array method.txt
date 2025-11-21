@@ -1,0 +1,130 @@
+Arrays:
+Arrays can store any type - let arr = [1,"tuee", false, 50, {name:sahil} ]
+
+----------------
+Array Methods: 
+
+map()
+------------
+Short Note (revision)
+map() → loops through array
+Runs a function on each item
+Returns new array, same length
+Does NOT modify original array
+Used a lot in React to render lists
+
+
+filter()
+-----------
+filter() creates a new array containing only the items that pass a condition (return true).
+It removes items that don’t match the condition.
+Original array stays the same.
+
+ex:
+const numbers = [1, 2, 3, 4, 5];
+const even = numbers.filter(num => num % 2 === 0);
+console.log(even); // [2, 4]
+
+
+find()
+-----------
+Returns the first item that matches a condition.
+If no match → returns undefined.
+
+Key points
+Stops after the first match
+Returns the item, not an array
+Does not change the original array
+
+
+forEach()
+-----------
+Runs a function once for each item in the array.
+
+Key points
+Does not return anything 
+Used for side effects (logging, updating variables)
+Does NOT change original array unless you modify items manually,
+if modified then original array will change
+
+
+includes()
+------------
+Checks if an array contains a value.
+Returns true / false.
+
+📌 Example
+const fruits = ["apple", "banana", "orange"];
+console.log(fruits.includes("banana")); // true
+
+
+push()
+----------
+Adds an item to the end of the array.
+
+pop()
+----------
+Removes the last item from the array.
+
+shift()
+---------
+Removes the first item from the array.
+
+unshift()
+---------
+Adds items to the start of the array.
+
+slice()
+---------
+Creates a new array by copying a portion of the original array.
+Does NOT change the original array.
+
+📌 Example
+const nums = [10, 20, 30, 40];
+const part = nums.slice(1, 3); 
+console.log(part); // [20, 30]
+
+concat()
+---------
+Joins arrays into a new array.
+Does NOT change original arrays.
+
+join()
+---------
+Converts an array into a string, separated by a given separator.
+
+📌 Example
+const parts = ["hello", "world"];
+console.log(parts.join(" ")); // "hello world"
+console.log(parts.join("-")); // "hello-world"
+
+sort()
+---------
+Sorts items in the array.
+Changes the original array.
+Numbers need a compare function!
+
+📌 WRONG for numbers:
+[10, 2, 30].sort(); // ["10", "2", "30"] (sorted as strings)
+
+📌 Correct:
+[10, 2, 30].sort((a, b) => a - b); // [2, 10, 30]
+
+
+reduce()
+----------
+- reduce array to single value (sum, multiple, etc)
+- for etc learn letter from youtube
+
+every()
+-----------
+Checks if all items satisfy a condition.
+Returns true/false.
+
+const nums = [2, 4, 6];
+nums.every(n => n % 2 === 0); // true
+
+some()
+-----------
+Checks if at least one item satisfies condition.
+Returns true/false.

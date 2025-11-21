@@ -1,0 +1,188 @@
+- querySelector(): Selects the first matching element (CSS selector style).
+- querySelectorAll(): Selects ALL matching elements → returns a NodeList (like an array).
+
+DOM MANIPULATION
+-----------------------------------------------------------------
+
+textContent → change text only
+--------------
+
+Changes or reads plain text (no HTML tags allowed).
+
+<h1 id="title">Hello</h1>
+const title = document.querySelector("#title");
+title.textContent = "New Title";
+
+innerHTML → insert HTML
+---------------
+
+Allows you to set HTML code inside an element.
+title.innerHTML = "<strong>Bold Title</strong>";
+
+✔️ Use only when you actually need HTML
+❌ Don’t use for user input (security risk)
+
+
+value → read/write input values
+-----------------
+
+Used for form fields:
+
+<input id="name" />
+const input = document.querySelector("#name");
+console.log(input.value); // get value
+input.value = "Ali"; // set value
+
+✔️ Works for input, textarea, select
+
+
+Attributes → set/get attributes
+---------------
+
+setAttribute()
+img.setAttribute("src", "photo.png");
+
+getAttribute()
+img.getAttribute("src");
+
+Common attributes: src, href, id, type, placeholder
+
+
+
+Using element.style (inline styles)
+---------------
+
+You can change HTML element styles directly.
+
+<p id="text">Hello</p>
+const text = document.querySelector("#text");
+text.style.color = "red";
+text.style.backgroundColor = "yellow";
+text.style.fontSize = "20px";
+
+
+Using classList (recommended way)
+-------------------------------------------
+Works with CSS classes instead of inline styles.
+
+✔️ classList.add()
+------------
+Adds a class.
+box.classList.add("active");
+
+✔️ classList.remove()
+-----------
+Removes a class.
+box.classList.remove("active");
+
+✔️ classList.toggle()
+----------
+Adds the class if not present, removes it if present.
+box.classList.toggle("active");
+
+
+✔️ classList.contains()
+-----------------
+Checks if a class exists.
+box.classList.contains("active"); // true/false
+
+
+
+
+Events & Event Listeners
+============================
+
+addEventListener()
+----------------------
+This is how you tell JS to “listen” to an event.
+element.addEventListener("event-name", function);
+
+Common Events (very important)
+----------
+- click: Fires when user clicks something.
+- input: Fires every time user types.
+- change: Fires when value is changed AND user leaves the field (blur).
+- submit: Used for forms.
+- keydown / keyup: Typing detection.
+
+
+Event Object (e or event)
+---------------------------------------
+Whenever an event happens, JS gives an event object with details.
+
+Example:
+input.addEventListener("input", (e) => {
+  console.log(e.target.value); // typed value
+});
+
+- e.preventDefault(): Prevents default browser behavior.
+
+
+
+Creating & Removing Elements
+====================
+
+1. Create an element
+-----------
+Use document.createElement().
+const div = document.createElement("div");
+
+This only creates it — it’s NOT on the page yet.
+
+2. Add content or classes to it
+-----------
+div.textContent = "Hello";
+div.classList.add("box");
+
+3. Add it to the page
+----------
+
+✔️ append() – modern, most used
+Adds at the end of a parent.
+parent.append(div);
+
+✔️ appendChild()
+Older version of append (only works with elements)
+parent.appendChild(div);
+
+✔️ prepend()
+Adds at the start of a parent.
+parent.prepend(div);
+
+	Example: Creating a new list item
+
+	<ul id="list"></ul>
+	<button id="btn">Add</button>
+
+	btn.addEventListener("click", () => {
+  		const li = document.createElement("li");
+  		li.textContent = "New Item";
+  		list.append(li);
+	});
+
+
+
+4. Removing an element
+-----------------
+✔️ remove() — modern & easiest
+element.remove();
+
+5. Removing child (older)
+---------------
+parent.removeChild(child);
+
+
+⭐ Very common real use-case: Delete button
+	btn.addEventListener("click", () => {
+  		item.remove();
+	});
+
+
+
+
+
+
+
+
+
+
