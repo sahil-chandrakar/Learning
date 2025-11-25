@@ -1,0 +1,76 @@
+IMPORTANT POINTS
+---------------
+
+Events are actions happening in the browser (click, input, submit, keypress, scroll, change, etc.).
+
+JS handles events using addEventListener(eventType, callback).
+
+One element can have multiple listeners for the same event.
+
+Inline events like <button onclick="fn()"> are not recommended.
+
+Common event categories:
+
+Mouse: click, dblclick, contextmenu, mouseover, mouseout
+
+Keyboard: keydown, keyup, keypress
+
+Form: input, change, submit, focus, blur
+
+Window: load, scroll, resize
+
+event.target → the actual element that triggered the event.
+
+event.currentTarget → the element on which the listener is attached.
+
+To prevent default browser action (form submit, link open):
+→ event.preventDefault()
+
+Events help create interactivity like buttons, forms, lists, modals, dropdowns, tabs, etc.
+
+
+
+Event Bubbling – Simple Definition
+-------------
+
+When an event triggers on a child, it automatically moves upward to its parent elements until the root.
+
+Stop event from moving up:
+event.stopPropagation();
+
+
+Stop bubbling + stop other listeners on the same element:
+event.stopImmediatePropagation();
+
+Event Delegation (IMP)
+---------------
+👉 Instead of adding event listeners to many child elements, you add one event listener to the parent, and handle all child clicks from that one listener.
+
+Example: 
+❌ Without delegation (BAD)
+
+Adding listener to every child button:
+
+document.querySelectorAll(".btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    console.log("Button clicked!");
+  });
+});
+
+
+If 100 buttons → 100 listeners 😬
+
+✅ With delegation (GOOD)
+
+Attach only one listener to the parent:
+
+document.querySelector(".parent").addEventListener("click", (e) => {
+  if (e.target.matches(".btn")) {
+    console.log("Button clicked!");
+  }
+});
+
+
+Even if 100 buttons → still only 1 listener 🤝
+Even if new buttons are added later → it still works automatically.
+
