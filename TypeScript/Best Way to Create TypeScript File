@@ -1,0 +1,85 @@
+Follow the steps and copy the files — you’ll be running in minutes.
+
+1) Prereqs
+
+Node.js + npm installed. (If not, install from nodejs.org)
+
+A code editor (VS Code — looks like you already have it).
+
+Basic comfort with terminal/commands.
+
+2) Project setup (commands)
+
+Run these in your project root (where index.html is):
+
+# initialize npm
+npm init -y
+
+# install TypeScript compiler and a tiny dev server
+npm install --save-dev typescript lite-server
+
+# create src folder for ts files
+mkdir src
+
+3) Create tsconfig.json
+
+Create tsconfig.json in project root (this tells tsc where to read and write):
+
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "ES2015",
+    "strict": true,
+    "esModuleInterop": true,
+    "outDir": "./assets/js",
+    "rootDir": "./src",
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"]
+}
+
+
+Notes:
+
+rootDir: src — put your .ts files in src/.
+
+outDir: assets/js — compiled .js will land in assets/js, matching your structure.
+
+4) package.json scripts
+
+Open package.json and add scripts section (or replace scripts):
+
+"scripts": {
+  "build": "tsc",
+  "watch": "tsc -w",
+  "start": "lite-server"
+}
+
+
+npm run build — compiles TypeScript once.
+
+npm run watch — recompiles on changes.
+
+npm run start — serves your project on a local server (so fetch and routing behave normally).
+
+5) create files app.ts, index.html etc
+
+6) Build & run
+
+In terminal:
+
+# build TypeScript once
+npm run build
+
+# start dev server (serves your index.html)
+npm run start
+
+
+Open the address printed by lite-server (usually http://localhost:3000) and test a city.
+
+If you're actively developing, run:
+
+npm run watch
+# and in another terminal
+npm run start
