@@ -1,201 +1,92 @@
-## 🔥 1. JavaScript Is Single-Threaded
+JavaScript Is Single-Threaded
+----------
+JavaScript runs one line at a time inside the Call Stack.
+But it can still handle async tasks like:
+setTimeout
+fetch()
+Promises
+Event listeners
 
-* JS runs one line at a time inside the **Call Stack**.
-* But JS can still handle async tasks like:
+This is possible because of the Event Loop system.
 
-  * `setTimeout`
-  * `fetch()` (API calls)
-  * Promises (`.then`, async/await)
-  * Event listeners
-    👉 This is possible because of the Event Loop system.
+Event Loop - Simple Meaning
+----------
+Event Loop decides what should run next when:
+- synchronous code is running
+- async tasks finish
+- callbacks are waiting
 
----
+Components of Event Loop
+---------
+1. Call Stack
+Where synchronous code runs.
 
-# 🔄 2. Event Loop — Simple Meaning
-
-Event Loop decides **what should run next** when:
-
-* synchronous code is running,
-* async tasks finish,
-* callbacks are waiting.
-
----
-
-# 🧱 3. Components of Event Loop (Very Important)
-
-### **1️⃣ Call Stack**
-
-Where synchronous code runs
 Example:
-
-```js
 console.log("Mani");
 console.log("Rajesh");
-```
 
-These run directly on the call stack.
-
----
-
-2️⃣ Web APIs (Browser Background)**
-
+2. Web APIs (Browser Background)
 Handles async operations like:
-
-* `setTimeout`
-* `fetch`
-* DOM events
-  These do **not** block the main thread.
+setTimeout
+fetch
+DOM events
+These do not block the main thread.
 
 Example:
-
-```js
 setTimeout(() => console.log("Timeout"), 2000);
 fetch("url");
-```
 
----
+3. Queues
 
-3️⃣ Queues
-
-#### **✔ Microtask Queue (High Priority)**
-
-Contains:
-
-* Promises (`then`, `catch`)
-* async/await resolved tasks
-
-Runs **before** any macrotask.
+Microtask Queue (High Priority)
+Contains:-
+Promises (then, catch)
+async/await resolved tasks
+Runs before macrotask.
 
 Example:
-
-```js
 Promise.resolve().then(() => console.log("Promise"));
-```
 
-#### **✔ Macrotask Queue (Low Priority)**
-
+Macrotask Queue (Low Priority)
 Contains:
-
-* `setTimeout`
-* `setInterval`
-* UI events
+setTimeout
+setInterval
+UI events
 
 Example:
-
-```js
 setTimeout(() => console.log("Timer"));
-```
 
----
+How Event Loop Works
+-----------
 
-# 🔁 4. How Event Loop Works (Easy Steps)
-
-1. Run all synchronous code in the **Call Stack**.
-2. When async tasks start → they move to **Web APIs**.
+1. Run all synchronous code in the Call Stack.
+2. Async tasks move to Web APIs.
 3. When async task finishes:
+   Promise -> Microtask Queue
+   setTimeout -> Macrotask Queue
+4. Event Loop checks if Call Stack is empty.
+5. If empty:
+   Microtask Queue runs first
+   Macrotask Queue runs second
 
-   * Promise → **Microtask Queue**
-   * setTimeout → **Macrotask Queue**
-4. Event Loop checks:
+Example Code:
+-----
 
-   ```
-   Is Call Stack empty?
-   ```
-5. If empty → event loop pushes tasks back:
+	console.log("Mani");
 
-   * First from **Microtask Queue**
-   * Then from **Macrotask Queue**
+	setTimeout(() => {
+   		console.log("setTimeout");
+	}, 2000);
 
----
+	fetch("data")
+   	.then(() => console.log("data"));
 
-# 📌 5. Whiteboard Example (Like Your Pic)
+	console.log("Rajesh");
 
-Your flow was something like:
-
-```js
-console.log("Mani");
-
-setTimeout(() => {
-   console.log("setTimeout");
-}, 2000);
-
-fetch("data")     // assumes 2 sec
-   .then(() => console.log("data"));
-
-console.log("Rajesh");
-```
-
-### 🧰 Execution Order Explained
-
-1. `console.log("Mani")` → Call Stack → prints immediately
-2. `setTimeout()` → goes to Web APIs (timer starts)
-3. `fetch()` → goes to Web APIs, waits for response
-4. `console.log("Rajesh")` → Call Stack → prints immediately
-
----
-
-5. After 2 sec:
-
-   * `fetch` response ready → Promise goes to **Microtask Queue**
-   * `setTimeout` callback goes to **Macrotask Queue**
-
----
-
-6. Event Loop:
-
-   * Call Stack empty → checks queues
-   * Runs **Microtask first** → prints `"data"`
-   * Runs **Macrotask second** → prints `"setTimeout"`
-
----
-
-# 📤 6. Final Output Order
-
-Based on your rough whiteboard notes, the final output would be:
-
-```
+Execution Order:
 Mani
 Rajesh
 data
 setTimeout
-```
 
-✔ synchronous first
-✔ promise (microtask) next
-✔ setTimeout (macrotask) last
 
----
-
-# 📚 7. One-Line Summary for Notes
-
-**Event Loop picks what to run next: microtasks (promises) first, macrotasks (setTimeout) second, after synchronous code finishes.**
-
----
-
-# 📝 8. Quick Diagram (text version)
-
-```
-            ┌─────────────┐
-            │  Call Stack │
-            └──────┬──────┘
-                   │
-                   ▼
-         ┌────────────────────┐
-         │     Web APIs       │
-         │ (timeout, fetch..) │
-         └──────┬─────────────┘
-                │
-    ┌───────────┴───────────┐
-    │                       │
-    ▼                       ▼
-Microtask Queue       Macrotask Queue
-(promises)            (setTimeout)
-
-            ▲
-            │
-       Event Loop
-```
-
----
-
-If you want, I can turn these notes into a **PDF**, **clean diagram**, or **interview-answer version**.
