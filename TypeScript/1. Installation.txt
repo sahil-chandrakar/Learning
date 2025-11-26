@@ -1,0 +1,17 @@
+✅ 1. Install TypeScript globally (use tsc everywhere)
+npm install -g typescript
+
+✅ 2. Install TypeScript in your project (recommended)
+npm install typescript --save-dev
+
+✅ 3. Initialize a tsconfig.json file
+
+(After installing TypeScript)
+npx tsc --init
+
+✅ 4. Install ts-node (run TS directly without compiling)
+npm install -D ts-node
+
+
+Run a TypeScript file:
+npx ts-node src/index.ts

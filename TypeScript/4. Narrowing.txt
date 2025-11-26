@@ -1,0 +1,160 @@
+What is Narrowing?
+-----------------------
+When a variable can have multiple types, TypeScript needs help to know which type it currently is.
+
+Example:
+
+function printValue(value: number | string) {
+  console.log(value);
+}
+value can be number OR string, so TypeScript doesn’t know which one at runtime.
+
+Narrowing means:
+👉 using checks (typeof, instanceof, etc.) so TypeScript understands the exact type inside a block.
+
+
+
+🎯 1. typeof Narrowing
+----------------
+Used for simple types like:
+string, number, boolean, object
+
+Example:
+
+function printId(id: string | number) {
+  if (typeof id === "string") {
+    console.log(id.toUpperCase()); // TS knows id is string
+  } else {
+    console.log(id * 2);           // TS knows id is number
+  }
+}
+This is the most common narrowing.
+
+
+🎯 2. Truthiness Narrowing
+--------------------
+Example:
+
+function printName(name?: string) {
+  if (name) {
+    console.log(name.toUpperCase());
+  } else {
+    console.log("No name");
+  }
+}
+
+If name exists → treat it as string
+If not → handle separately
+
+
+🎯 3. Equality Narrowing
+-------------------
+function compare(a: string | number, b: string | boolean) {
+  if (a === b) {
+    // here TS knows both are string
+    console.log(a.toUpperCase());
+  }
+}
+
+
+
+🎯 4. in Operator Narrowing
+----------------------
+Used when checking if an object has a property.
+
+Example:
+
+type Student = { name: string; grade: number };
+type Teacher = { name: string; subject: string };
+
+function printInfo(person: Student | Teacher) {
+  if ("grade" in person) {
+    console.log("Student grade:", person.grade);
+  } else {
+    console.log("Teacher subject:", person.subject);
+  }
+}
+
+If "grade" exists → it's a Student
+Else it's a Teacher
+
+Note:   'grade" in person'
+	It only checks one thing:
+	Does the object have a property named "grade"
+
+
+
+🎯 5. instanceof Narrowing
+----------------
+Used for classes.
+
+class Dog {
+  bark() {
+    console.log("Woof!");
+  }
+}
+
+class Cat {
+  meow() {
+    console.log("Meow!");
+  }
+}
+
+function speak(pet: Dog | Cat) {
+  if (pet instanceof Dog) {
+    pet.bark();
+  } else {
+    pet.meow();
+  }
+}
+
+
+Note: 	instanceof checks:
+	Was this object created from this class?
+
+
+
+🎯 6. Discriminated Union (Very Important for React)
+----------------
+Create a common field to identify type.
+
+type Circle = {
+  kind: "circle";
+  radius: number;
+};
+
+type Square = {
+  kind: "square";
+  side: number;
+};
+
+
+Then narrow using kind:
+
+function area(shape: Circle | Square) {
+  if (shape.kind === "circle") {
+    return Math.PI * shape.radius * 2;
+  } else {
+    return shape.side * shape.side;
+  }
+}
+
+
+🎯 7. never Type (Real Use Case)
+-----------------------
+Used when a case should never happen.
+
+Example:
+
+function checkShape(shape: Circle | Square) {
+  switch (shape.kind) {
+    case "circle":
+      return shape.radius * 2;
+    case "square":
+      return shape.side * shape.side;
+    default:
+      const _exhaustive: never = shape; // ❌ error if new type not handled
+  }
+}
+
+This helps catch future bugs.

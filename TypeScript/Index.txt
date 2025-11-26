@@ -1,0 +1,203 @@
+1. Basics (TS Fundamentals)
+-------------------
+What is TypeScript?
+
+Why use TypeScript in React projects?
+
+Installing TypeScript
+
+Types vs JavaScript
+
+Basic Types
+
+number
+
+string
+
+boolean
+
+any
+
+unknown
+
+null / undefined
+
+Arrays in TypeScript
+
+Objects in TypeScript
+
+Type Aliases (type)
+
+Interfaces (interface)
+
+Union Types (|)
+
+Literal Types
+
+
+
+2. Functions in TS
+-------------------------------------------
+Function typing
+
+Parameter types
+
+Return types
+
+Optional parameters
+
+Default parameters
+
+Rest parameters (...args)
+
+Function type aliases
+
+
+3. Narrowing & Guards
+-----------------------
+Type Narrowing (if/else)
+
+typeof checks
+
+instanceof checks
+
+In operator
+
+Exhaustive checking (never)
+
+
+4. Advanced Types
+------------------
+Enums
+
+Tuples
+
+Type Assertions (Casting)
+
+Readonly Type
+
+Intersection Types (&)
+
+Utility Types
+
+Partial
+
+Required
+
+Readonly
+
+Pick
+
+Omit
+
+Record
+
+
+5. Classes & OOP (TS Style)
+-------------------
+Classes
+
+Access modifiers (public, private, protected)
+
+Constructor typing
+
+Getters & Setters
+
+Inheritance
+
+Abstract classes
+
+
+6. Generics (Very Important for React)
+----------------
+What are generics?
+
+Generic functions
+
+Generic interfaces
+
+Generic classes
+
+Constraints in generics
+➡️ This helps in React with components & hooks typing.
+
+
+7. Working with Modules
+------------------
+
+Export / import in TypeScript
+
+Using TS in Node / React
+
+tsconfig.json explained simply
+
+
+8. TypeScript with React (Most Important Part)
+----------------
+Typing React components
+
+Props typing
+
+State typing (useState)
+
+Event typing
+
+Custom hooks typing
+
+API response typing
+
+Context API typing
+
+Reusable component types + children
+
+
+9. Project-level Concepts
+--------------
+Folder structure for TS + React
+
+Creating reusable types/interfaces
+
+API data model typing
+
+Error handling with TS
+
+Best practices
+
+Common mistakes beginners make
+
+Useful libraries with TypeScript
+
+
+
+10. Mini Projects (Practice)
+--------------
+Todo App with TypeScript
+
+Movie Search App (OMDb API)
+
+User Filter App
+
+Form Handling in TypeScript
+
+CRUD App with TS + React
+
+
+11. Final Project
+---------------
+Complete React + TypeScript Project
+
+API calls
+
+Components
+
+Types
+
+Hooks
+
+Routing
+
+Context
+
+Error handling
+
+Reusable components

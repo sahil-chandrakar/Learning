@@ -1,0 +1,165 @@
+1) Create an npm project (one-time)
+
+Open a terminal in your project root (where index.html lives) and run:
+
+npm init -y
+
+This creates package.json so you can install dev tools.
+
+
+2) Install TypeScript locally
+----------------------
+Install the TypeScript compiler as a dev dependency:
+
+npm install --save-dev typescript
+
+(Using a local install is recommended so your project is reproducible. You can still use npx tsc to run it.)
+
+
+3) Create a tsconfig.json
+------------------
+Auto-generate a starting config:
+
+npx tsc --init
+
+
+Then edit tsconfig.json to something appropriate for browser projects. Replace or update fields to this example:
+
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // File Layout
+    "rootDir": "./assets/ts",
+    "outDir": "./assets/js",
+ 
+    // Environment Settings
+    // See also https://aka.ms/tsconfig/module
+    "module": "ES6",
+    "target": "ES6",
+    "lib": ["ES2016", "DOM"],
+    "types": [],
+    // For nodejs:
+    // "lib": ["esnext"],
+    // "types": ["node"],
+    // and npm install -D @types/node
+ 
+    // Other Outputs
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+ 
+    // Stricter Typechecking Options
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+ 
+    // Style Options
+    // "noImplicitReturns": true,
+    // "noImplicitOverride": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noFallthroughCasesInSwitch": true,
+    // "noPropertyAccessFromIndexSignature": true,
+ 
+    // Recommended Options
+    "strict": true,
+    "jsx": "react-jsx",
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true
+  },
+  "include": ["assets/ts/**/*"],
+  "exclude": ["node_modules"]
+}
+
+Adjust rootDir/outDir paths if your .ts files live elsewhere.
+
+
+4) Decide where compiled JS should be served
+---------------------------
+I recommend dist/ for everything the browser will load. After compile, JS will be under dist/ts/TS_script.js. If you have other assets, copy them into dist or point index.html at the compiled file location.
+
+Option A — keep index.html in root and reference compiled JS:
+
+change <script src="ts/TS_script.ts"> (if you mistakenly had that) to:
+
+<script src="dist/ts/TS_script.js" defer></script>
+
+Option B — move or copy index.html into dist and reference ts/TS_script.js relative there.
+
+
+
+5) Add npm scripts to package.json
+
+Open package.json and add these under "scripts":
+
+"scripts": {
+  "build": "tsc",
+  "watch": "tsc -w"
+}
+
+
+Now you can run npm run build to compile once, or npm run watch to continuously compile while editing.
+
+6) Compile TypeScript
+
+One-time compile:
+
+npm run build
+
+
+Now check dist/ts/TS_script.js exists. Open your index.html (the one the browser loads) and ensure its <script> points to that compiled JS file.
+
+If you made outDir equal to the same folder the HTML uses (not recommended), note you’ll overwrite files. Better keep dist.
+
+
+7) Serve the project (so fetch, modules, etc. work correctly)
+-----------------------------
+You can open index.html directly in browser for simple cases, but using a local server avoids CORS/module issues. A simple option:
+
+Install live-server (dev):
+
+npm install --save-dev live-server
+
+
+Add script:
+
+"start": "live-server --open=./index.html --port=8080"
+
+
+If your index.html is in dist (Option B), set --open=./dist/index.html.
+
+Run the server:
+
+npm run start
+
+(Alternatively use VSCode Live Server extension if you prefer.)
+
+
+8) Common pitfalls & tips
+------------------------
+Don’t load .ts in the browser. Browsers only understand .js. Always point <script> to the compiled .js file.
+
+Source maps let you debug original .ts files in DevTools if sourceMap: true.
+
+DOM types (e.g., document.querySelector) are available because we put "lib": ["dom"] in tsconfig. If you get errors about DOM types, make sure lib includes "dom".
+
+If your code uses querySelector and then calls properties, TypeScript may complain about possibly null. Use safe checks or non-null assertions:
+
+const btn = document.querySelector(".btn") as HTMLButtonElement | null;
+if (btn) btn.addEventListener(...);
+// or, if you are certain:
+const btn2 = document.querySelector(".btn")! as HTMLButtonElement;
+
+
+If you use ES modules (import/export) and want to load them in the browser, set <script type="module" src="..."> in HTML and ensure compiled outputs keep compatible module format (or use bundler).
+
+9) Optional: Faster dev with tsc -w
+
+While developing run:
+
+npm run watch
+
+
+This will recompile on every edit. Then refresh your browser (or use Live Server which can auto-reload).

@@ -1,0 +1,110 @@
+Functions in TypeScript
+---------------
+Functions are almost same as JavaScript, but TypeScript adds types.
+We add types to:
+
+1️⃣ Parameters
+2️⃣ Return value
+3️⃣ Optional parameters
+4️⃣ Default parameters
+5️⃣ Rest parameters (...args)
+6️⃣ Function type alias
+
+
+✅ 1. Function with Parameter Types
+---------------------
+In TS we write:
+
+function add(a: number, b: number) {
+  return a + b;
+}
+a: number → a must be number
+b: number → b must be number
+
+⛔ Wrong:
+add("10", 20); // ❌ error
+
+
+✅ 2. Function with Return Type
+------------------
+
+You can also manually define the return type:
+
+function greet(name: string): string {
+  return "Hello " + name;
+}
+
+If you return wrong type:
+
+function greet(name: string): string {
+  return 10; // ❌ error
+}
+
+
+✅ 3. Optional Parameters (?)
+-----------------------
+Means parameter is not required.
+
+function message(name: string, age?: number) {
+  console.log(name, age);
+}
+
+message("sahil");        // age missing ✔️
+message("sahil", 22);    // ✔️
+
+
+✅ 4. Default Parameters
+----------------------
+If no value given → default will be used.
+
+function greetMe(name: string = "guest") {
+  console.log("Hello", name);
+}
+
+greetMe();        // Hello guest
+greetMe("Sahil"); // Hello Sahil
+
+
+✅ 5. Rest Parameters (...args)
+---------------------
+Use when you don't know how many values you will get.
+
+function sum(...nums: number[]) {
+  return nums.reduce((a, b) => a + b, 0);
+}
+
+console.log(sum(10, 20, 30)); // 60
+...nums means: take many numbers and store in array.
+
+
+✅ 6. Function Type Alias (Very Important for React)
+-----------------------
+You can define a function type:
+
+type AddFn = (a: number, b: number) => number;
+
+const add: AddFn = (a, b) => {
+  return a + b;
+};
+
+Why useful?
+➡️ You reuse function type everywhere.
+
+
+📌 7. Void Return Type
+------------
+Functions that return nothing:
+
+function log(message: string): void {
+  console.log(message);
+}
+
+
+📌 8. Never Return Type
+------------------
+Used when function never returns (infinite loop / throw).
+
+function error(msg: string): never {
+  throw new Error(msg);
+}
+This is used in React sometimes for exhaustive checking.

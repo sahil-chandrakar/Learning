@@ -1,0 +1,131 @@
+What is TypeScript? (Very Simple Explanation)
+---------------
+TypeScript = JavaScript + Types.
+JavaScript is flexible but sometimes too flexible:
+
+let age = 20;
+age = "twenty"; // JS allows this (bad)
+
+TypeScript prevents mistakes like this.
+
+let age: number = 20;
+age = "twenty"; // ❌ Error in TypeScript
+
+So TypeScript catches errors before running the code → saves time.
+
+
+
+
+How to install TypeScript (quick)
+-------------------
+Open terminal: npm install -g typescript
+Check version: tsc -v
+
+Create a TS file: index.ts
+Compile TS → JS: tsc index.ts
+
+
+✨ 2. Basic Types in TypeScript
+---------------------
+
+📌 number
+
+Only numbers allowed.
+
+let age: number = 22;
+age = 30;  // ✔️ ok
+// age = "hello" // ❌ error
+
+📌 string
+let username: string = "sahil";
+username = "mani";
+
+📌 boolean
+let isStudent: boolean = true;
+isStudent = false;
+
+📌 any
+Means accept anything (not recommended).
+
+let value: any = 10;
+value = "hello";
+value = true;
+
+📌 unknown
+Similar to any but safer.
+
+let data: unknown = 10;
+data = "hello";
+data = true;
+You must check type before using — safer.
+
+📌 null & undefined
+let a: null = null;
+let b: undefined = undefined;
+
+
+
+3. Arrays in TypeScript
+-------------------
+Two ways:
+
+✔️ Method 1
+let marks: number[] = [90, 80, 70];
+
+✔️ Method 2
+let names: Array<string> = ["sahil", "mani"];
+
+
+
+4. Objects in TypeScript
+---------------------
+let student: { id: number; name: string } = {
+  id: 1,
+  name: "sahil",
+};
+
+
+5. Type Alias (very useful)
+---------------------
+You create your own type.
+
+type User = {
+  id: number;
+  name: string;
+};
+
+let u1: User = { id: 1, name: "sahil" };
+let u2: User = { id: 2, name: "pawan" };
+
+
+6. Interface (same as type but for objects)
+-------------------------
+Used more in React!
+
+interface Student {
+  id: number;
+  name: string;
+}
+
+let s1: Student = {
+  id: 1,
+  name: "mani",
+};
+
+
+7. Union Types (|)
+---------------
+Means variable can be multiple types.
+
+let score: number | string;
+score = 100;
+score = "hundred";
+
+
+8. Literal Types
+---------------
+Value is fixed.
+
+let gender: "male" | "female";
+gender = "male";   // ✔️
+// gender = "other" // ❌ not allowed
