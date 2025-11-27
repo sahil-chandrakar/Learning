@@ -1,0 +1,253 @@
+COMMON HTML ELEMENT TYPES IN TYPESCRIPT
+=========================================================
+
+HTMLElement
+    - Most generic element (div, section, p, h1, span, etc.)
+
+HTMLInputElement
+    - <input>
+
+HTMLButtonElement
+    - <button>
+
+HTMLFormElement
+    - <form>
+
+HTMLSelectElement
+    - <select>
+
+HTMLOptionElement
+    - <option>
+
+HTMLTextAreaElement
+    - <textarea>
+
+HTMLImageElement
+    - <img>
+
+HTMLAnchorElement
+    - <a>
+
+HTMLUListElement
+    - <ul>
+
+HTMLOListElement
+    - <ol>
+
+HTMLLIElement
+    - <li>
+
+HTMLParagraphElement
+    - <p>
+
+HTMLHeadingElement
+    - <h1>, <h2>, <h3> ... <h6>
+
+HTMLLabelElement
+    - <label>
+
+HTMLTableElement
+    - <table>
+
+HTMLTableRowElement
+    - <tr>
+
+HTMLTableCellElement
+    - <td>, <th>
+
+HTMLVideoElement
+    - <video>
+
+HTMLAudioElement
+    - <audio>
+
+HTMLCanvasElement
+    - <canvas>
+
+HTMLIFrameElement
+    - <iframe>
+
+Document
+    - The full HTML document (window.document)
+
+Window
+    - The browser window (window object)
+
+---------------------------------------------------------
+
+
+=========================================================
+COMMON EVENTS & THEIR TYPES
+=========================================================
+
+Event
+    - The base type for most events
+
+MouseEvent
+    - click
+    - mousedown
+    - mouseup
+    - mousemove
+    - mouseenter
+    - mouseleave
+
+KeyboardEvent
+    - keydown
+    - keyup
+    - keypress
+
+InputEvent
+    - input
+
+ChangeEvent (NOT official in TS; use Event instead)
+    - change
+
+SubmitEvent
+    - Form submit
+
+FocusEvent
+    - focus
+    - blur
+
+WheelEvent
+    - mouse wheel scroll
+
+TouchEvent
+    - touchscreen interactions (mobile)
+
+DragEvent
+    - drag & drop
+
+---------------------------------------------------------
+
+Example:
+element.addEventListener("click", (e: MouseEvent) => {...});
+input.addEventListener("input", (e: Event) => {...});
+
+
+=========================================================
+ASYNC / FETCH / PROMISE TYPINGS
+=========================================================
+
+Promise<T>
+    - Represents an async value that will eventually be type T
+
+async function example(): Promise<string> { ... }
+
+fetch(url)
+    - Returns: Promise<Response>
+
+Response.json()
+    - Returns: Promise<any> (you should type it manually)
+
+Common fetch pattern in TS:
+    interface ApiData {
+        name: string;
+        id: number;
+    }
+
+    const getData = async (): Promise<ApiData> => {
+        const response = await fetch(url);
+        const json: ApiData = await response.json();
+        return json;
+    };
+
+Try/catch typing:
+    try { ... }
+    catch (error: unknown) { ... }
+
+
+=========================================================
+TIMER FUNCTION TYPES
+=========================================================
+
+let timer: number;
+
+timer = window.setTimeout(() => {...}, 500);
+
+clearTimeout(timer);
+
+setInterval typings:
+let intervalId: number;
+intervalId = window.setInterval(() => {...}, 1000);
+clearInterval(intervalId);
+
+
+=========================================================
+COMMON JS → TS PRIMITIVE TYPES
+=========================================================
+
+string     → "hello"
+number     → 10, 3.14
+boolean    → true, false
+null       → null
+undefined  → undefined
+any        → disables type checking (avoid using)
+unknown    → safer version of any (must check before use)
+void       → function returns nothing
+never      → function never returns (error / infinite loop)
+object     → any non-primitive object
+
+
+=========================================================
+COMMON DOM SELECTION SYNTAX FOR TYPESCRIPT
+=========================================================
+
+const div = document.querySelector(".box") as HTMLElement;
+const btn = document.querySelector("#btn") as HTMLButtonElement;
+const input = document.querySelector("#username") as HTMLInputElement;
+
+
+=========================================================
+COMMON EVENT TARGET CASTING
+=========================================================
+
+(e.target as HTMLInputElement).value
+
+Full example:
+input.addEventListener("input", (e: Event) => {
+    const value = (e.target as HTMLInputElement).value;
+});
+
+
+=========================================================
+FORM DATA TYPES
+=========================================================
+
+FormData
+    - extract form fields
+    const formData = new FormData(formElement);
+
+SubmitEvent
+    form.addEventListener("submit", (e: SubmitEvent) => {...});
+
+
+=========================================================
+STORAGE TYPES
+=========================================================
+
+localStorage
+    - setItem(key: string, value: string)
+    - getItem(key: string): string | null
+
+sessionStorage
+    - same typing as localStorage
+
+
+=========================================================
+JSON TYPES
+=========================================================
+
+Always type the expected shape:
+
+interface User {
+    name: string;
+    age: number;
+}
+
+const data: User = await response.json();
+
+
+=========================================================
+END OF DOCUMENT
+=========================================================
