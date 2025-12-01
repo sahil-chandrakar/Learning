@@ -1,0 +1,185 @@
+📘 React Learning Index (JS + TS, Beginner → Advanced)
+
+(We will expand each later with examples, but for now just index)
+
+
+1. Foundation Refresh (JS Required for React)
+
+Modern JS (ES6+)
+
+Arrow functions, spread, map/filter
+
+Modules & imports
+
+Promises, async/await
+
+Fetch API and APIs
+
+
+
+2. React Fundamentals (JavaScript)
+
+What is React & why use it
+
+Components (function components)
+
+JSX basics
+
+Props
+
+State
+
+Events & handlers
+
+Conditional rendering
+
+Lists + keys
+
+Basic project structure (App.jsx, components folder)
+
+
+
+3. Intermediate React
+
+Hooks:
+
+useState
+
+useEffect
+
+useRef
+
+useMemo / useCallback (light intro)
+
+Forms & controlled inputs
+
+Lifting state up
+
+Passing functions as props
+
+Reusable components
+
+API Calls inside React
+
+Error handling & loading UI
+
+Environment variables (.env)
+
+4. Advanced React
+
+React Router
+
+Context API
+
+Custom Hooks
+
+Performance optimization
+
+Prop Drilling vs Context
+
+Code splitting
+
+Lazy loading
+
+React Suspense (basic)
+
+
+5. TypeScript With React
+
+Why TS in React
+
+Props with types
+
+useState with types
+
+Event types
+
+Children props
+
+Custom component types
+
+Reusable interfaces & types
+
+API response typing
+
+Custom hooks in TypeScript
+
+React Router + TS
+
+
+6. Styling in React
+
+CSS file per component
+
+CSS Modules
+
+Tailwind CSS (recommended)
+
+Styled Components (optional)
+
+Responsive design basics
+
+
+7. Working With APIs in React
+
+File structure for services
+
+Fetch vs Axios
+
+Async workflows
+
+Error boundaries
+
+Pagination & search
+
+Infinite scroll (optional)
+
+
+8. State Management
+
+Why global state?
+
+Context API (detailed)
+
+Redux (basic introduction)
+
+Redux Toolkit (recommended)
+
+
+9. Backend + React
+
+Basic Node.js understanding
+
+Express.js API
+
+Connecting React to backend
+
+CRUD operations
+
+Authentication basics (JWT)
+
+
+10. React + TypeScript Projects
+
+Todo App (JS → TS)
+
+Weather App
+
+Blog App (with API)
+
+Dashboard (tables, charts)
+
+Ecommerce (cart + login)
+
+Portfolio website
+
+
+11. Deployment
+
+Vercel
+
+Netlify
+
+Build process
+
+Environment variables in production

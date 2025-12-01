@@ -1,0 +1,269 @@
+Section 3 includes
+----------------------
+What is a Hook?
+useEffect
+useRef
+useMemo
+useCallback
+Forms & Controlled Inputs
+Lifting State Up
+API Calls in React
+Loading & error UI
+
+
+⭐ 1. What is a Hook?
+------------------------------
+
+✔ Simple definition
+A Hook is a special React function that lets you use features like state, lifecycle, refs, and performance optimizations inside functional components.
+
+✔ Why hooks exist?
+Before Hooks → only class components had features like lifecycle methods
+After Hooks → functional components became powerful
+
+✔ What hooks do internally?
+React maintains an internal “state list” for every component.
+Every hook call (useState, useEffect, etc.) reads or updates a specific slot inside React’s internal memory.
+
+✔ Hooks always start with "use"
+Example:
+useState, useEffect, useRef, useMemo, etc.
+
+
+⭐ 2. useEffect
+------------------------------
+✔ What is useEffect?
+A React Hook that runs side effects — code that happens outside the UI rendering.
+
+Examples of side effects:
+-> API calls
+-> Changing document title
+-> setTimeout / setInterval
+-> Event listeners
+-> Updating DOM manually
+
+✔ What it does internally
+
+React runs useEffect after the component renders.
+If dependencies change → React re-runs the effect.
+
+✔ useEffect Syntax
+useEffect(() => {
+  // side effect here
+}, [dependencies]);
+
+⭐ Case 1: Run only once (component mount)
+
+Dependencies: []
+
+JS:
+	useEffect(() => {
+  		console.log("Mounted");
+	}, []);
+
+TS:
+	useEffect((): void => {
+  		console.log("Mounted");
+	}, []);
+
+
+⭐ Case 2: Run whenever a value changes
+
+JS:
+	useEffect(() => {
+  		console.log("Count changed");
+	}, [count]);
+
+TS:
+	useEffect(() => {
+  		console.log("Count changed");
+	}, [count]);
+
+
+
+⭐ Full useEffect Example (JS + TS)
+JS:
+
+import { useEffect, useState } from "react";
+
+function App() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log("Count changed");
+  }, [count]);
+
+  return <button onClick={() => setCount(count + 1)}>+</button>;
+}
+
+TS:
+import { useEffect, useState } from "react";
+
+function App() {
+  const [count, setCount] = useState<number>(0);
+
+  useEffect((): void => {
+    console.log("Count changed");
+  }, [count]);
+
+  return <button onClick={() => setCount(prev => prev + 1)}>+</button>;
+}
+
+
+
+⭐ 3. useRef 
+-------------------------------
+✔ What is useRef?
+A Hook that stores a mutable value that does NOT cause re-render when changed.
+
+Common uses:
+-> Access DOM elements
+-> Store previous values
+-> Store timers
+-> Store any value that should not trigger re-render
+
+✔ What useRef does internally
+
+React creates a { current: value } object.
+This object persists between renders.
+
+JS Example (DOM access): 
+
+import { useRef } from "react";
+
+function App() {
+  const inputRef = useRef(null);
+
+  const focusInput = () => {
+    inputRef.current.focus();
+  };
+
+  return (
+    <>
+      <input ref={inputRef} />
+      <button onClick={focusInput}>Focus</button>
+    </>
+  );
+}
+
+
+TS Example (DOM access)
+
+const inputRef = useRef<HTMLInputElement | null>(null);
+
+const focusInput = () => {
+  inputRef.current?.focus();
+};
+
+
+
+⭐ 4. useMemo
+-------------------------
+✔ What is useMemo?
+Optimizes performance by memoizing (saving) the result of a function so it doesn't re-run unnecessarily.
+
+Use when:
+-> Heavy calculations
+-> Expensive loops
+-> Filtering large lists
+
+✔ Internal behavior
+React saves the computed value.
+Only recomputes if dependencies change.
+
+JS:
+const expensiveValue = useMemo(() => {
+  return heavyCalculation(count);
+}, [count]);
+
+TS:
+const expensiveValue = useMemo<number>(() => {
+  return heavyCalculation(count);
+}, [count]);
+
+
+
+⭐ 5. useCallback
+--------------------------
+
+✔ What is useCallback?
+Memoizes functions, not values.
+Helps prevent child components from re-rendering unnecessarily.
+
+Use when:
+-> Passing functions to child components
+-> Child components rely on memoization
+
+JS:
+const handleClick = useCallback(() => {
+  console.log("Clicked");
+}, []);
+
+TS:
+const handleClick = useCallback((): void => {
+  console.log("Clicked");
+}, []);
+
+
+
+⭐ 6. Forms & Controlled Inputs
+---------------------
+✔ What is a controlled input?
+An input where the value is controlled by React state.
+
+JS:
+const [name, setName] = useState("");
+
+<input
+  value={name}
+  onChange={(e) => setName(e.target.value)}
+/>;
+
+TS:
+const [name, setName] = useState<string>("");
+
+<input
+  value={name}
+  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+    setName(e.target.value)
+  }
+/>;
+
+
+
+⭐ 7. Lifting State Up
+--------------------------
+When two or more components need the same state, move the state to the closest parent.
+
+Reason: Keeps the data consistent between components.
+
+Example parent controlling child input:
+const [username, setUsername] = useState("");
+
+Pass to children using props.
+
+⭐ 8. API Calls in React
+----------------------------
+✔ Why inside useEffect?
+Because rendering should not contain side effects.
+
+Basic API example (JS):
+
+useEffect(() => {
+  async function fetchData() {
+    const res = await fetch("https://api.example.com");
+    const data = await res.json();
+    setUsers(data);
+  }
+  fetchData();
+}, []);
+
+TS:-
+useEffect(() => {
+  const fetchData = async (): Promise<void> => {
+    const res = await fetch("https://api.example.com");
+    const data: User[] = await res.json();
+    setUsers(data);
+  };
+  fetchData();
+}, []);

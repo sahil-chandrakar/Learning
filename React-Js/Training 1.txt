@@ -1,0 +1,129 @@
+JavaScript Required for React
+=====================
+
+1. ES6 Syntax Basics
+------------------
+-> let and const
+-> template literals
+-> default parameters
+
+Example (JS):
+----
+const name = "Sahil";
+let age = 21;
+console.log(`My name is ${name} and age is ${age}`);
+
+
+2. Arrow Functions
+--------------------
+Used everywhere in React (especially event handlers).
+
+JS:
+const add = (a, b) => {
+  return a + b;
+};
+
+:Short version:
+const add = (a, b) => a + b;
+
+:TS:
+const add = (a: number, b: number): number => a + b;
+
+
+3. Spread & Rest Operators
+-----------------------
+
+:Spread (copy arrays/objects):
+	const arr1 = [1, 2, 3];
+	const arr2 = [...arr1, 4]; 
+
+:Rest (collect parameters): Use when you don't know how many values you will get
+	const sum = (...nums) => {
+  		return nums.reduce((a, b) => a + b, 0);
+	};
+
+
+4. Destructuring
+------------------
+React uses this everywhere (props, state, objects).
+
+JS:
+const user = { name: "Sahil", age: 21 };
+const { name, age } = user;
+
+TS:
+const user: { name: string; age: number } = { name: "Sahil", age: 21 };
+const { name, age } = user;
+
+
+5. Important Array Methods
+--------------------
+React uses these for list rendering.
+
+🔹 map() — create JSX lists
+const nums = [1, 2, 3];
+const doubled = nums.map(n => n * 2);
+
+🔹 filter()
+const nums = [1, 2, 3, 4];
+const even = nums.filter(n => n % 2 === 0);
+
+🔹 reduce()
+const total = [10, 20, 30].reduce((sum, v) => sum + v, 0);
+
+
+6. Modules (import / export)
+-----------------
+React uses modules in every file.
+
+export:
+export const add = (a, b) => a + b;
+
+import:
+import { add } from "./math.js";
+
+
+7. Promises
+-------------
+
+Basics before async/await.
+
+	const myPromise = new Promise((resolve, reject) => {
+  		setTimeout(() => resolve("done"), 1000);
+	});
+
+myPromise.then(res => console.log(res));
+
+
+8. async / await
+------------------
+Used for APIs in React.
+
+	async function getData() {
+  		const response = await fetch("https://api.example.com");
+  		const data = await response.json();
+  		console.log(data);
+	}
+
+
+TS Version:
+
+	async function getData(): Promise<any> {
+  	const response = await fetch("https://api.example.com");
+  	return response.json();
+	}
+
+
+9. Fetch API (GET & POST)
+--------------------
+GET:
+fetch("https://api.example.com/data")
+  .then(res => res.json())
+  .then(data => console.log(data));
+
+POST:
+fetch("https://api.example.com/create", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ name: "Sahil" })
+});
