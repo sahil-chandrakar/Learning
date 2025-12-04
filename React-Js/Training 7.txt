@@ -1,0 +1,191 @@
+1) State
+-------------
+Definition (short):
+The single source of truth — an object that holds all app data managed by Redux.
+
+What it does:
+Stores data (e.g., user, cart items, theme) that many parts of the app may read.
+
+2) Action
+-------------
+Definition (short):
+A plain object that describes what happened. It always has a type field and may have a payload.
+
+What it does:
+Tells Redux intent (e.g., "increment", "login user") — it does not change state by itself.
+
+3) Reducer
+---------------
+Definition (short):
+A pure function that receives the current state and an action, and returns a new state. reducer(state, action) => newState.
+
+What it does:
+Implements how the state should change for each action type.
+
+Rules:
+Must be pure (no side effects).
+Must not mutate the existing state (return a new object).
+
+
+4) Store
+----------------
+Definition (short):
+The object that holds the state tree. It also provides methods to dispatch actions and subscribe to changes.
+
+What it does:
+
+Holds current state
+
+dispatch(action) sends an action to reducers
+
+getState() reads current state
+
+subscribe(listener) listens for state updates
+
+Create a store (using Redux library)
+
+Note: In real projects you’ll normally use Redux Toolkit (simpler). Below is the plain Redux way for conceptual clarity.
+
+
+
+5) Slice (concept + modern shortcut)
+----------------------------
+
+Definition (short):
+A slice is a focused part of the state (e.g., counter slice, user slice) and the logic (actions + reducer) that manages that part.
+
+Why slices:
+They split a large state into smaller, easier-to-manage pieces.
+
+Redux Toolkit note (recommended):
+Redux Toolkit introduces createSlice() which combines action creators + reducer + initial state into one place — simpler and less boilerplate.
+
+
+
+How they all connect — short flow (example)
+-----------------------------
+
+-> Component calls dispatch({ type: "counter/increment" }) (Action sent).
+
+-> Store receives the action and forwards to reducer.
+
+-> Reducer checks action type and returns a new state (without mutating).
+
+-> Store updates its internal state, notifies subscribers (React will re-render components connected to the store).
+
+-> Component reads new state using store.getState() or via react-redux hooks (useSelector).
+
+
+
+EXAMPLE
+==============
+
+1️⃣ UI (Component)
+
+The component shows a value: count = 0
+
+It also has a button: Increment Btn
+
+The component does NOT store the count → Redux does.
+
+2️⃣ User Clicks Button
+
+When the user clicks Increment,
+
+The component’s onClick calls a handler function.
+
+Example:
+
+onClick={handleClick}
+
+3️⃣ Handler Function Runs
+
+handleClick() is inside the component.
+
+Inside it we call:
+
+dispatch(increment())
+
+
+So the handler’s job is:
+
+✔ Trigger a Redux action
+✔ Send it to the store through dispatch()
+
+4️⃣ Dispatch Sends Action to Store
+
+dispatch() sends an Action object to Redux.
+
+Example Action:
+
+{ type: "counter/increment" }
+
+✔ This Action describes what happened
+❌ It does not update state itself
+
+5️⃣ Store Receives the Action
+
+The store forwards the action to the Reducer
+
+The store always holds the current state (e.g., {count: 1})
+
+6️⃣ Reducer Updates the State
+
+Reducer checks action type:
+
+if (action.type === "counter/increment") {
+  return { count: state.count + 1 }
+}
+
+✔ Reducer = logic for updating state
+✔ Reducer always returns new state
+✔ Reducer does not mutate old state
+
+7️⃣ Store Saves the New State
+
+After reducer returns new state:
+
+Store updates its internal state
+
+Store now holds:
+
+count = 2
+
+8️⃣ UI Re-renders Automatically
+
+React-Redux detects the state change.
+
+Components using:
+
+useSelector(state => state.counter)
+
+will automatically re-render with the new count.
+
+So the UI updates to:
+
+count = 2
+
+
+✔ No manual UI updates
+✔ No DOM manipulation
+✔ React handles re-rendering
+
+
+⭐ Cheat Sheet Notes
+
+Action = What happened
+
+Reducer = How state should change
+
+Store = Where state lives
+
+Dispatch = Send action to store
+
+useSelector = Read state from store
+
+useDispatch = Send actions
+
+Updated state → UI updates automatically
+
+
+

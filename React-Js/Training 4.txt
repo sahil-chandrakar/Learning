@@ -1,0 +1,205 @@
+⭐ SECTION 4.1 — React Router
+===============================
+
+🔷 1. Why React Router? 
+----------------------
+React is a Single Page Application (SPA) framework.
+
+This means:
+The browser does NOT reload pages
+UI changes based on component rendering
+But we still need different “pages” (Home, About, Products, etc.)
+
+👉 React Router allows you to switch components as if they are pages
+without refreshing the browser.
+
+In short:
+React Router = Page navigation system for React apps.
+
+🔷 2. Install React Router
+---------------
+Same for JS & TS:
+npm install react-router-dom
+
+🔷 3. Basic Setup (JS + TS)
+---------------
+React Router needs:
+
+BrowserRouter → wraps the whole app
+Routes → container for all routes
+Route → maps a URL to a component
+
+⭐ FULL BASIC EXAMPLE — JavaScript (src/App.jsx)
+
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+function Home() {
+  return <h2>Home Page</h2>;
+}
+
+function About() {
+  return <h2>About Page</h2>;
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <nav>
+        <Link to="/">Home</Link> |{" "}
+        <Link to="/about">About</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+
+
+⭐ FULL BASIC EXAMPLE — TypeScript (src/App.tsx)
+-------------------
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
+function Home(): JSX.Element {
+  return <h2>Home Page</h2>;
+}
+
+function About(): JSX.Element {
+  return <h2>About Page</h2>;
+}
+
+function App(): JSX.Element {
+  return (
+    <BrowserRouter>
+      <nav>
+        <Link to="/">Home</Link> |{" "}
+        <Link to="/about">About</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+export default App;
+
+
+⭐ Explanation 
+------------------
+<BrowserRouter> → enables routing in browser
+
+<Link> → navigation without reload
+<Routes> → all routes live here
+<Route>
+
+path → URL
+element → which component to load
+
+
+🔷 4. useNavigate (Navigate using JS)
+-------------------
+Used when you want to navigate using code, not a <Link>.
+
+JS Example:
+import { useNavigate } from "react-router-dom";
+
+function Home() {
+  const navigate = useNavigate();
+
+  return (
+    <>
+      <h2>Home Page</h2>
+      <button onClick={() => navigate("/about")}>
+        Go to About
+      </button>
+    </>
+  );
+}
+
+TS Example:
+import { useNavigate } from "react-router-dom";
+
+function Home(): JSX.Element {
+  const navigate = useNavigate();
+
+  return (
+    <>
+      <h2>Home Page</h2>
+      <button onClick={() => navigate("/about")}>
+        Go to About
+      </button>
+    </>
+  );
+}
+
+⭐ Explanation
+useNavigate gives a function
+calling navigate("/about") switches the page
+no reload happens
+
+🔷 5. Dynamic Routes + useParams
+-----------------------
+Used for pages like:
+
+/users/10
+/products/5
+/blog/react-hooks
+
+⭐ JS Example:
+Step 1: Declare dynamic route
+<Route path="/user/:id" element={<User />} />
+
+Step 2: Access parameter
+import { useParams } from "react-router-dom";
+
+function User() {
+  const { id } = useParams();
+  return <h3>User ID: {id}</h3>;
+}
+
+⭐ TS Example:
+import { useParams } from "react-router-dom";
+
+function User(): JSX.Element {
+  const { id } = useParams<{ id: string }>();
+  return <h3>User ID: {id}</h3>;
+}
+
+⭐ Why useParams?
+----------------
+Because URLs contain dynamic values — React Router extracts them for you.
+
+🔷 6. Nested Routes 
+------------
+/dashboard
+/dashboard/profile
+/dashboard/settings
+
+JS:
+<Route path="/dashboard" element={<Dashboard />}>
+  <Route path="profile" element={<Profile />} />
+  <Route path="settings" element={<Settings />} />
+</Route>
+
+TS:
+
+Same, TypeScript has no extra typing here.
+
+🔥 Summary of React Router
+------------------------
+BrowserRouter → enables routing
+Routes → contains all page routes
+Route → maps URL to component
+Link → navigation without refresh
+useNavigate → navigate using code
+useParams → read dynamic values
+Nested routes → parent/child pages
+
+
+
+
